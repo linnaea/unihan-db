@@ -425,8 +425,8 @@ class kHDZRadBreak(GenericIndice):
     __mapper_args__ = {'polymorphic_identity': 'kHDZRadBreak'}
 
     id = Column(Integer, ForeignKey('GenericIndice.id'), primary_key=True)
-    radical = Column(String(10))
-    ucn = Column(String(10))
+    radical = Column(String(1))
+    ucn = Column(String(8))
 
 
 class kSBGY(GenericIndice):
