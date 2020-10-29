@@ -209,8 +209,7 @@ def to_dict(obj, found=None):
         else:
             return (c, getattr(obj, c))
 
-    if found is None:
-        found = set()
+    found = set(found) if found else set()
     mapper = class_mapper(obj.__class__)
     columns = [column.key for column in mapper.columns]
 
