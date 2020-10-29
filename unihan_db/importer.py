@@ -46,6 +46,7 @@ from unihan_db.tables import (
     kSBGY,
     kTotalStrokes,
     kXHC1983,
+    kTGHZ2013,
     kSimplifiedVariant,
     kTraditionalVariant,
     kSpoofingVariant,
@@ -131,6 +132,19 @@ def import_char(c, char):  # NOQA: C901
                 )
             k.readings.append(UnhnReading(reading=d['reading']))
             c.kXHC1983.append(k)
+
+    if 'kTGHZ2013' in char:
+        for d in char['kTGHZ2013']:
+            k = kTGHZ2013()
+            for loc in d['locations']:
+                k.locations.append(
+                    UnhnLocation(
+                        page=loc['page'],
+                        character=loc['character'],
+                    )
+                )
+            k.readings.append(UnhnReading(reading=d['reading']))
+            c.kTGHZ2013.append(k)
 
     if 'kCheungBauer' in char:
         for d in char['kCheungBauer']:

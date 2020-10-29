@@ -46,6 +46,7 @@ class Unhn(Base):
     kIRGKangXi = relationship("kIRGKangXi")
     kHanyuPinyin = relationship("kHanyuPinyin")
     kXHC1983 = relationship("kXHC1983")
+    kTGHZ2013 = relationship("kTGHZ2013")
     kCheungBauer = relationship("kCheungBauer")
     kRSAdobe_Japan1_6 = relationship("kRSAdobe_Japan1_6")
     kCihaiT = relationship("kCihaiT")
@@ -274,6 +275,13 @@ class kRSAdobe_Japan1_6(Base):
 class kHanyuPinyin(GenericReading):
     __tablename__ = 'kHanyuPinyin'
     __mapper_args__ = {'polymorphic_identity': 'kHanyuPinyin'}
+
+    id = Column(Integer, ForeignKey('GenericReading.id'), primary_key=True)
+
+
+class kTGHZ2013(GenericReading):
+    __tablename__ = 'kTGHZ2013'
+    __mapper_args__ = {'polymorphic_identity': 'kTGHZ2013'}
 
     id = Column(Integer, ForeignKey('GenericReading.id'), primary_key=True)
 

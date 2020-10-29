@@ -90,6 +90,7 @@ UNIHAN_FIELDS = [
     'kTraditionalVariant',
     'kVietnamese',
     'kXHC1983',
+    'kTGHZ2013',
     'kZVariant',
     'kIICore',
     'kUnihanCore2020',
