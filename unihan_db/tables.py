@@ -50,6 +50,7 @@ class Unhn(Base):
     kRSAdobe_Japan1_6 = relationship("kRSAdobe_Japan1_6")
     kCihaiT = relationship("kCihaiT")
     kIICore = relationship("kIICore")
+    kUnihanCore2020 = relationship("kUnihanCore2020")
     kHanYu = relationship("kHanYu")
     kDaeJaweon = relationship("kDaeJaweon")
     kFenn = relationship("kFenn")
@@ -346,6 +347,13 @@ class kIICore(Base):
     char_id = Column(String(1), ForeignKey('Unhn.char'))
     priority = Column(String(1))
     sources = relationship('kIICoreSource')
+
+
+class kUnihanCore2020(Base):
+    __tablename__ = 'kUnihanCore2020'
+    id = Column(Integer, primary_key=True)
+    char_id = Column(String(1), ForeignKey('Unhn.char'))
+    source = Column(String(1))
 
 
 class UnhnLocationkXHC1983(Base):

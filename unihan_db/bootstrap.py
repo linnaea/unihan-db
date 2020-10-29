@@ -92,6 +92,7 @@ UNIHAN_FIELDS = [
     'kXHC1983',
     'kZVariant',
     'kIICore',
+    'kUnihanCore2020',
     'kDaeJaweon',
     'kIRGDaeJaweon',
     'kIRGKangXi',

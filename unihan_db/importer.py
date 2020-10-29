@@ -21,6 +21,7 @@ from unihan_db.tables import (
     kHDZRadBreak,
     kIICore,
     kIICoreSource,
+    kUnihanCore2020,
     kIRG_GSource,
     kIRG_HSource,
     kIRG_JSource,
@@ -157,6 +158,10 @@ def import_char(c, char):  # NOQA: C901
             for s in d['sources']:
                 k.sources.append(kIICoreSource(source=s))
             c.kIICore.append(k)
+
+    if 'kUnihanCore2020' in char:
+        for s in char['kUnihanCore2020']:
+            c.kUnihanCore2020.append(kUnihanCore2020(source=s))
 
     if 'kDaeJaweon' in char:
         k = kDaeJaweon()
