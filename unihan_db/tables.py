@@ -77,6 +77,12 @@ class Unhn(Base):
     kFennIndex = relationship("kFennIndex")
     kCheungBauerIndex = relationship("kCheungBauerIndex")
     kCCCII = relationship("kCCCII")
+    kSimplifiedVariant = relationship("kSimplifiedVariant")
+    kTraditionalVariant = relationship("kTraditionalVariant")
+    kSpoofingVariant = relationship("kSpoofingVariant")
+    kZVariant = relationship("kZVariant")
+    kSemanticVariant = relationship("kSemanticVariant")
+    kSpecializedSemanticVariant = relationship("kSpecializedSemanticVariant")
 
 
 class kCCCII(Base):
@@ -448,3 +454,78 @@ class kFennIndex(GenericIndice):
     __mapper_args__ = {'polymorphic_identity': 'kFennIndex'}
 
     id = Column(Integer, ForeignKey('GenericIndice.id'), primary_key=True)
+
+
+class GenericVariant(Base):
+    __tablename__ = 'GenericVariant'
+    id = Column(Integer, primary_key=True)
+    char_id = Column(String(1), ForeignKey('Unhn.char'))
+    type = Column(String(50))
+    ucn = Column(String(8))
+    __mapper_args__ = {'polymorphic_identity': 'generic_variant', 'polymorphic_on': type}
+
+
+class UnhnVariantSource(Base):
+    __tablename__ = 'UnhnVariantSource'
+    id = Column(Integer, primary_key=True)
+    variant_id = Column(Integer, ForeignKey('GenericVariant.id'))
+    type = Column(String(50))
+    source = Column(String(50))
+    same = Column(Boolean)
+    improper = Column(Boolean)
+    preferred = Column(Boolean)
+    __mapper_args__ = {'polymorphic_identity': 'UnhnVariantSource', 'polymorphic_on': type}
+
+
+class SemanticVariantSource(UnhnVariantSource):
+    __tablename__ = 'SemanticVariantSource'
+    __mapper_args__ = {'polymorphic_identity': 'SemanticVariantSource'}
+
+    id = Column(Integer, ForeignKey('UnhnVariantSource.id'), primary_key=True)
+    simplified = Column(Boolean)
+    traditional = Column(Boolean)
+
+
+class kSimplifiedVariant(GenericVariant):
+    __tablename__ = 'kSimplifiedVariant'
+    __mapper_args__ = {'polymorphic_identity': 'kSimplifiedVariant'}
+
+    id = Column(Integer, ForeignKey('GenericVariant.id'), primary_key=True)
+
+
+class kTraditionalVariant(GenericVariant):
+    __tablename__ = 'kTraditionalVariant'
+    __mapper_args__ = {'polymorphic_identity': 'kTraditionalVariant'}
+
+    id = Column(Integer, ForeignKey('GenericVariant.id'), primary_key=True)
+
+
+class kSpoofingVariant(GenericVariant):
+    __tablename__ = 'kSpoofingVariant'
+    __mapper_args__ = {'polymorphic_identity': 'kSpoofingVariant'}
+
+    id = Column(Integer, ForeignKey('GenericVariant.id'), primary_key=True)
+
+
+class kSemanticVariant(GenericVariant):
+    __tablename__ = 'kSemanticVariant'
+    __mapper_args__ = {'polymorphic_identity': 'kSemanticVariant'}
+
+    id = Column(Integer, ForeignKey('GenericVariant.id'), primary_key=True)
+    sources = relationship('SemanticVariantSource')
+
+
+class kSpecializedSemanticVariant(GenericVariant):
+    __tablename__ = 'kSpecializedSemanticVariant'
+    __mapper_args__ = {'polymorphic_identity': 'kSpecializedSemanticVariant'}
+
+    id = Column(Integer, ForeignKey('GenericVariant.id'), primary_key=True)
+    sources = relationship('SemanticVariantSource')
+
+
+class kZVariant(GenericVariant):
+    __tablename__ = 'kZVariant'
+    __mapper_args__ = {'polymorphic_identity': 'kZVariant'}
+
+    id = Column(Integer, ForeignKey('GenericVariant.id'), primary_key=True)
+    sources = relationship('UnhnVariantSource')

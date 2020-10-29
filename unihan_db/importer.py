@@ -46,6 +46,14 @@ from unihan_db.tables import (
     kSBGY,
     kTotalStrokes,
     kXHC1983,
+    kSimplifiedVariant,
+    kTraditionalVariant,
+    kSpoofingVariant,
+    kZVariant,
+    kSemanticVariant,
+    kSpecializedSemanticVariant,
+    UnhnVariantSource,
+    SemanticVariantSource
 )
 
 
@@ -282,3 +290,28 @@ def import_char(c, char):  # NOQA: C901
             )
         )
         c.kFennIndex.append(k)
+
+    simple_variant_fields = (
+        ('kSimplifiedVariant', kSimplifiedVariant, c.kSimplifiedVariant),
+        ('kTraditionalVariant', kTraditionalVariant, c.kTraditionalVariant),
+        ('kSpoofingVariant', kSpoofingVariant, c.kSpoofingVariant),
+    )
+
+    for f, model, column in simple_variant_fields:
+        if f in char:
+            for d in char[f]:
+                column.append(model(ucn=d))
+
+    sourced_variant_fields = (
+        ('kZVariant', kZVariant, c.kZVariant, UnhnVariantSource),
+        ('kSemanticVariant', kSemanticVariant, c.kSemanticVariant, SemanticVariantSource),
+        ('kSpecializedSemanticVariant', kSpecializedSemanticVariant, c.kSpecializedSemanticVariant, SemanticVariantSource),
+    )
+
+    for f, model, column, source_model in sourced_variant_fields:
+        if f in char:
+            for d in char[f]:
+                m = model(ucn=d['ucn'])
+                for s in d.get('sources', []):
+                    m.sources.append(source_model(**s))
+                column.append(m)

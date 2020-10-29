@@ -109,6 +109,12 @@ UNIHAN_FIELDS = [
     'kIRG_UKSource',
     'kGSR',
     'kCCCII',
+    'kSimplifiedVariant',
+    'kTraditionalVariant',
+    'kSpoofingVariant',
+    'kZVariant',
+    'kSemanticVariant',
+    'kSpecializedSemanticVariant',
 ]
 
 UNIHAN_ETL_DEFAULT_OPTIONS = {
