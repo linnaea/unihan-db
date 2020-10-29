@@ -30,6 +30,8 @@ from unihan_db.tables import (
     kIRG_TSource,
     kIRG_USource,
     kIRG_VSource,
+    kIRG_SSource,
+    kIRG_UKSource,
     kIRGDaeJaweon,
     kIRGHanyuDaZidian,
     kIRGKangXi,
@@ -241,6 +243,8 @@ def import_char(c, char):  # NOQA: C901
         ('kIRG_TSource', kIRG_TSource, c.kIRG_TSource),
         ('kIRG_USource', kIRG_USource, c.kIRG_USource),
         ('kIRG_VSource', kIRG_VSource, c.kIRG_VSource),
+        ('kIRG_SSource', kIRG_SSource, c.kIRG_SSource),
+        ('kIRG_UKSource', kIRG_UKSource, c.kIRG_UKSource),
     )
 
     for f, model, column in irg_fields:

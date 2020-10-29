@@ -104,6 +104,8 @@ UNIHAN_FIELDS = [
     'kIRG_TSource',
     'kIRG_USource',
     'kIRG_VSource',
+    'kIRG_SSource',
+    'kIRG_UKSource',
     'kGSR',
     'kCCCII',
 ]
