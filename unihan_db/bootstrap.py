@@ -150,8 +150,8 @@ def bootstrap_data(options={}):
 def bootstrap_unihan(session, options={}):
     """Download, extract and import unihan to database."""
     if session.query(Unhn).count() == 0:
-        data = bootstrap_data(options)
         log.info('bootstrap Unhn table')
+        data = bootstrap_data(options)
         log.info('bootstrap Unhn table finished')
         count = 0
         total_count = len(data)
